@@ -35,7 +35,7 @@ def main():
                     {'title': 'Не надо примеров'}
                   ]
 
-    elif request.json['request']['command'] == 'Примеры':
+    elif request.json['request']['command'] == 'примеры':
         text = 'Какая ситуация в мире? Что в мире?\n \
                 Сводка по России. Ситуация в нашей стране\n \
                 Статистика в Москве. Ситуация в Монголии.\n \
@@ -43,7 +43,7 @@ def main():
                 Какие симптомы? Симптомы\n \
                 Где найти советы по вирусу? Советы.'
 
-    elif request.json['request']['command'] == 'Не надо примеров':
+    elif request.json['request']['command'] == 'не надо примеров':
         text = 'Хорошо, тогда слушаю вас)) \n (＾▽＾)'
 
     response = {
