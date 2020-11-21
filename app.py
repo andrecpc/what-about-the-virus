@@ -3,6 +3,7 @@ import json
 import logging
 from flask import Flask, request
 import requests
+import pandas as pd
 
 import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="marusya-made-12e4432bff10.json"
@@ -39,11 +40,11 @@ def detect_intent_texts(project_id, session_id, texts, language_code):
             response.query_result.fulfillment_text))
         return {'Query text': response.query_result.query_text,
                 'Detected intent': response.query_result.intent.display_name,
-                'Fulfillment text': response.query_result.fulfillment_text}
+                'Fulfillment text': response.query_result.fulfillment_text}, response
 
 def get_intent(text):
-    answer = detect_intent_texts('marusya-made', 7777777, [text], 'ru')
-    return answer['Detected intent']
+    answer, r = detect_intent_texts('marusya-made', 7777777, [text], 'ru')
+    return answer['Detected intent'], r
 
 @app.route('/')
 def index():
@@ -52,6 +53,8 @@ def index():
 @app.route('/mrs', methods=['POST'])
 def main():
 
+    answ, r = get_intent(request.json['request']['command'])
+
     card = {}
     buttons = []
     end_session = False
@@ -59,7 +62,7 @@ def main():
 
     if request.json['session']['new']:
         text = 'Привет! Меня зовут Алиса. Я могу дать текущую сводку по \
-                коронавирусу в разрезе стран или городов. \
+                коронавирусу в разрезе стран и мира. \
                 Вы можете ознакомиться с примерами команд или начать спрашивать)'
         # Потом раскоментить картинку!!!!!!!!
         # card = {
@@ -77,15 +80,14 @@ def main():
     elif request.json['request']['command'] == 'примеры':
         text = '1. Какая ситуация в мире? Что в мире?\n \
                 2. Сводка по России. Ситуация в нашей стране\n \
-                3. Статистика в Москве. Ситуация в Монголии.\n \
-                4. Сравни показатели России и Бразилии.\n \
-                5. Какие симптомы? Симптомы\n \
-                6. Где найти советы по вирусу? Советы.'
+                3. Статистика в Германии. Ситуация в Монголии.\n \
+                4. Какие симптомы? Симптомы\n \
+                5. Где найти советы по вирусу? Советы.'
 
     elif request.json['request']['command'] == 'не надо примеров':
         text = 'Хорошо, тогда слушаю вас)) \n (＾▽＾)'
 
-    elif get_intent(request.json['request']['command']) == 'world request':
+    elif answ == 'world request':
         try:
             res = requests.get('https://covid-api.com/api/reports/total')
             data = res.json()['data']
@@ -105,12 +107,12 @@ def main():
                     Не удается загрузить данные.\n\
                     Простите, может сработают другие команды.'
 
-    elif get_intent(request.json['request']['command']) == 'russia':
+    elif answ == 'russia':
         try:
             res = requests.get('https://covid19-api.org/api/status/ru')
             data = res.json()
 
-            text = 'СВОДКА ПО МИРУ \n\
+            text = 'СВОДКА ПО РОССИИ \n\
                     Актуально на {d}\n\
                     Заражения: {z}\n\
                     Смерти: {de}\n\
@@ -120,6 +122,30 @@ def main():
                                                de='{0:,}'.format(data['deaths']).replace(',', ' '),
                                                s=round(data['deaths']/data['cases']*100,2),
                                                v='{0:,}'.format(data['recovered']).replace(',', ' '))
+        except:
+            text = 'Кажется, не только вам сейчас интересна статистика в России. \
+                    Не удается загрузить данные.\n\
+                    Простите, может сработают другие команды.'
+
+    elif answ == 'countries':
+        df = pd.read_csv('countries_codes.csv')
+        country = r.query_result.parameters.values()[0]
+        code = df.loc[df['Страна']==country]['Код'].values[0]
+        try:
+            res = requests.get('https://covid19-api.org/api/status/'+code)
+            data = res.json()
+
+            text = 'СВОДКА - {c}\n\
+            Актуально на {d}\n\
+            Заражения: {z}\n\
+            Смерти: {de}\n\
+            Смертность: {s}%\n\
+            Выздоровления: {v}'.format(c=country.upper(),
+                                       d=data['last_update'][0:10],
+                                       z='{0:,}'.format(data['cases']).replace(',', ' '),
+                                       de='{0:,}'.format(data['deaths']).replace(',', ' '),
+                                       s=round(data['deaths']/data['cases']*100,2),
+                                       v='{0:,}'.format(data['recovered']).replace(',', ' '))
         except:
             text = 'Кажется, не только вам сейчас интересна статистика в России. \
                     Не удается загрузить данные.\n\
