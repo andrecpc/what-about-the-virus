@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import json
 import logging
 from flask import Flask, request
+import requests
 
 import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="marusya-made-12e4432bff10.json"
@@ -85,7 +86,24 @@ def main():
         text = 'Хорошо, тогда слушаю вас)) \n (＾▽＾)'
 
     elif get_intent(request.json['request']['command']) == 'world request':
-        text = 'Сейчас будет информация по миру'
+        try:
+            res = requests.get('https://covid-api.com/api/reports/total')
+            data = res.json()['data']
+
+            text = 'СВОДКА ПО МИРУ \n\
+                    Актуально на {d}\n\
+                    Заражения: {z}\n\
+                    Смерти: {de}\n\
+                    Смертность: {s}%\n\
+                    Выздоровления: {v}'.format(d=data['date'],
+                                               z='{0:,}'.format(data['confirmed']).replace(',', ' '),
+                                               de='{0:,}'.format(data['deaths']).replace(',', ' '),
+                                               s=round(data['fatality_rate']*100,2),
+                                               v='{0:,}'.format(data['recovered']).replace(',', ' '))
+        except:
+            text = 'Кажется, не только вам сейчас интересна статистика по миру. \
+                    Не удается загрузить данные.\n\
+                    Простите, может сработают другие команды.'
 
     elif request.json['request']['command'] == 'on_interrupt':
         text = 'Всего доброго! Берегите себя и близких!'
