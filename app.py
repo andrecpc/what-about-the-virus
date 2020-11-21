@@ -105,6 +105,26 @@ def main():
                     Не удается загрузить данные.\n\
                     Простите, может сработают другие команды.'
 
+    elif get_intent(request.json['request']['command']) == 'russia':
+        try:
+            res = requests.get('https://covid19-api.org/api/status/ru')
+            data = res.json()
+
+            text = 'СВОДКА ПО МИРУ \n\
+                    Актуально на {d}\n\
+                    Заражения: {z}\n\
+                    Смерти: {de}\n\
+                    Смертность: {s}%\n\
+                    Выздоровления: {v}'.format(d=data['last_update'][0:10],
+                                               z='{0:,}'.format(data['cases']).replace(',', ' '),
+                                               de='{0:,}'.format(data['deaths']).replace(',', ' '),
+                                               s=round(data['deaths']/data['cases']*100,2),
+                                               v='{0:,}'.format(data['recovered']).replace(',', ' '))
+        except:
+            text = 'Кажется, не только вам сейчас интересна статистика в России. \
+                    Не удается загрузить данные.\n\
+                    Простите, может сработают другие команды.'
+
     elif request.json['request']['command'] == 'on_interrupt':
         text = 'Всего доброго! Берегите себя и близких!'
 
