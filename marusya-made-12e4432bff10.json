@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "marusya-made",
+  "private_key_id": "12e4432bff10be52e87515a4f2d4288bb790b449",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDA4K1/nfzs8J9L\nIhFV894om0IdkhgVltc/m+3Wph63QfAbaAAPINC10PVWjkmGIj2rLTP2wF+OiXck\nlO9Bg+7a9ZsdA9+e2RuC4oAu2HnvPUw9bfzp/ln43UDZko7kcWfFXsI6190IzgIn\ngqEvPOUQtsea3jnnJJp8max1Ue6Pz6caUqFqxYyrtnLFL+h203qopLk4C7EQTOLU\nsal7lhhBIvdN/By4CkH/PE8WAF8zSoCihj1bKILctar8iRubFP02ljd4VihgmjpL\nrDPSbZq1QPvWri/ea2LwDVzhoNJvjtcQGHYaBg/1c+hiIrfkRPkB+audlBqeO3C+\n23WQCVDzAgMBAAECggEACHtFnEYhKdwrU3b6jMb0chQUIRyPbl4CAu9c7JXE5c/o\n+pOLf4U0y4hjGXzLsxgzXqEjI73yFccDh1P85DeK6KcCb93mCf3heoZySfasAGWE\njwwuO63uXLkbnm9JVRzyVr89feMhlAvXE8/oCmpvmj+nYS7vgrOp29vRteqcU0eK\naG0uwvQfFJmFqrLA/vs0otCS7WpXrZOsiEUHDUNM9zN7lTi0fk7GfQQD5CoZkcKT\nTai9dCbkWZts9co2zkyFm+SX+oUSPxoxYgIhcInQtYczLSMVTWU+kk2EChTVO+7J\n/+powESIgtL3+uByyPeKJUAT2UgN4dvT1rFXO7JZhQKBgQD2YEZu2adMLaR3oIIH\nw9IzBSkwfCPfAeI/Zukjs+NTtR9Sbq3s1rKCj/aN26Vjd4VVbVlTR9bXSOjIuMrq\n95g916ejEhuO3TivYdbLFV7WcsLf9wxMD21k37EPBXM1kltTSCJC7c32zVsrPyef\nOqneU22t5W+kkIAJfK6aku3MhwKBgQDIaW0V9dXg/Ti/4f4TAC48PWgjg0mtMuvS\nzppdTQuxd024lVZnCu+V86NfVrqEbdgjJdJcEC3jo2IhaaYrsIr6OnwSMxgA1YTW\nEpZ3936HWE776L23h0+TvR5r1OfKb+J2kA9eVBr2vRo0Q029EXkSfhjE+CKwEUsT\n47S+5bF/NQKBgQDDr2Ih50QGsHXiAh1lN3Z7yYyWkvMWzHM78mwYTGexc7mGCpyf\n8ULlipzEvYFWSHchi/GXwQZ2BdXGn2ekSrWj4OaoEdjLlw/P1QD6WmXyJEJ+CsW8\nn8A+j6EdEjIYib95nWCBEko1zZOs/MNmp/yFtnP127bZ2V+oqVwxL6QqfwKBgG6o\n3+X/TzCjQaGaDKu7Lsxub8EkLhtngZVuJQgdkbZVFOI1+3Z8MFyRIgVzoxuad3y4\n1pWlDWGjhnzClFGNcr/GaVm3Qqq7O1TlAJaPXxsmpL4t/guHuGXwSArsjWxXKSmk\nVAgW0qipM/3lp9gc/Mg8PjsMdELZ2aXK1rONqtt9AoGAZ/MkXRzYP8RQ3ZT6znxo\nn/V/0ckscitLyN9I+6gqtMycf45HrCgYKnHtTSsY8sOZco4HpsxNpM0AwcEvgHYH\nklIgwUiOudcmgEaoSFpqp/wYhWCzOT+iRrH+4wF6lalrIuQ1+885ng4aVcVyfahg\nY+pIEc76Y5jv8GmrDoMbb9A=\n-----END PRIVATE KEY-----\n",
+  "client_email": "service-account@marusya-made.iam.gserviceaccount.com",
+  "client_id": "100944531089818351611",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/service-account%40marusya-made.iam.gserviceaccount.com"
+}
