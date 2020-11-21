@@ -87,6 +87,9 @@ def main():
     elif request.json['request']['command'] == 'не надо примеров':
         text = 'Хорошо, тогда слушаю вас)) \n (＾▽＾)'
 
+    elif answ == 'Default Welcome Intent':
+        text = r.query_result.fulfillment_text
+
     elif answ == 'world request':
         try:
             res = requests.get('https://covid-api.com/api/reports/total')
@@ -147,12 +150,31 @@ def main():
                                        s=round(data['deaths']/data['cases']*100,2),
                                        v='{0:,}'.format(data['recovered']).replace(',', ' '))
         except:
-            text = 'Кажется, не только вам сейчас интересна статистика в России. \
+            text = 'Кажется, не только вам сейчас интересна статистика по странам. \
                     Не удается загрузить данные.\n\
                     Простите, может сработают другие команды.'
 
+    elif answ == 'symptoms':
+        text = 'К наиболее распространенным симптомам COVID-19 относятся:\
+                \n\лихорадка;\nсухой кашель;\nутомляемость.\n\
+                К другим, менее распространенным симптомам, которые встречаются у ряда пациентов, относятся:\
+                \nутрата обоняния или вкусовых ощущений;\nзаложенность носа;\n\
+                конъюнктивит (или покраснение глаз);\nболь в горле;\nголовная боль;\
+                \nболь в мышцах или суставах;\nразличные виды высыпаний на коже;\
+                \nтошнота или рвота;\nдиарея;\nозноб или головокружение.'
+
+    elif answ == 'advices':
+        text = 'Исчерпывающую информацию можно получить на сайте ВОЗ\
+                \nhttps://www.who.int/ru/emergencies/diseases/novel-coronavirus-2019/advice-for-public\n\
+                или минздрава\
+                \nhttps://covid19.rosminzdrav.ru/#prevention'
+
     elif request.json['request']['command'] == 'on_interrupt':
         text = 'Всего доброго! Берегите себя и близких!'
+
+    else:
+        text = r.query_result.fulfillment_text
+
 
     response = {
     'version': request.json['version'],
